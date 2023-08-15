@@ -71,11 +71,11 @@ for subdir, _, files in os.walk(root):
         if file in ignore_files:
             continue
 
-        print("SCAN:", file, path)
-
         ext = file.split(".")[-1]
         if ext in ignore_exts:
             continue
+
+        print("SCAN:", file, path)
 
         with open(path) as f:
             content = f.readlines()
