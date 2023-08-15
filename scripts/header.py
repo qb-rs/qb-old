@@ -36,7 +36,9 @@ def construct(ext: str) -> str:
 root = os.path.normpath(os.path.join(dn, ".."))
 
 ignore_exts = [
-    "lock"
+    "lock",
+    # TODO: add proper file headers for markdown
+    "md"
 ]
 ignore_files = [
     "AUTHORS",
