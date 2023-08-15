@@ -8,7 +8,9 @@
 
 -- About
 
-QuixByte is an opensource file service, which allows users to quickly synchronize and backup their files across multiple devices.
+QuixByte is an opensource file service, which allows
+users to quickly synchronize and backup their files
+across multiple devices.
 
 --
 
