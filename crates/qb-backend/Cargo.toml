@@ -16,4 +16,7 @@ edition.workspace = true
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
+actix-web = "4.3.1"
 qb-api = { path = "../qb-api/" }
+r2d2 = "0.8.10"
+redis = { version = "0.23.2", features = [ "r2d2" ] }
