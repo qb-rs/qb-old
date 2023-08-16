@@ -9,6 +9,7 @@
 # (c) Copyright 2023 The QuixByte Authors
 
 import os
+import sys
 
 dn = os.path.dirname(os.path.realpath(__file__))
 
@@ -52,6 +53,11 @@ ignore_dirs = [
     ".git"
 ]
 
+write = len(sys.argv) == 2 and sys.argv[1] == "write"
+
+if write:
+    print("INFO: write enabled")
+
 fail = False
 
 for subdir, _, files in os.walk(root):
@@ -78,14 +84,21 @@ for subdir, _, files in os.walk(root):
         print("SCAN:", file, path)
 
         with open(path) as f:
-            content = f.readlines()
+            content = f.read()
+        content_lines = content.split("\n")
         expected = construct(ext)
+        expected_lines = expected.split("\n")
     
-        for (i, line) in enumerate(expected.split("\n")):
-            if i >= len(content) or content[i].strip() != line.strip():
+        for (i, line) in enumerate(expected_lines):
+            if i >= len(content_lines) or content_lines[i].strip() != line.strip():
                 print("WARN:", file, "does not contain the correct header:", i)
-                print(expected)
-                fail = True
+                if write:
+                    print("WRITE:", file)
+                    with open(path, "w") as f:
+                        f.write(expected + "\n" + content)
+                else:
+                    print(expected)
+                    fail = True
                 break
 
 if fail:
