@@ -23,7 +23,7 @@ langs = {
     "yaml": "# ",
     "toml": "# ",
     "bash": "# ",
-    "md": "[//]: # ",
+    "env": "# ",
 }
 
 def construct(ext: str) -> str:

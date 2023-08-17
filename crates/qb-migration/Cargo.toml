@@ -9,28 +9,19 @@
 # (c) Copyright 2023 The QuixByte Authors
 
 [package]
-name = "qb-backend"
+name = "qb-migration"
 version.workspace = true
 edition.workspace = true
 
 [dependencies]
-# First-hand dependencies
-qb-entity = { path = "../qb-entity/" }
-qb-migration = { path = "../qb-migration/" }
+async-std = { version = "1", features = ["attributes", "tokio1"] }
 
-# Second-hand dependencies
-actix-web = "4.3.1"
-dotenv = "0.15.0"
-r2d2 = "0.8.10"
-redis = { version = "0.23.2", features = [ "r2d2" ] }
-sea-orm = { version = "0.12.2", features = [ "runtime-tokio-native-tls", "macros" ]}
-log = "0.4.20"
-tracing = "0.1.37"
-tracing-subscriber = "0.3.17"
-tracing-actix-web = "0.7.6"
-tracing-unwrap = "0.10.0"
+[dependencies.sea-orm-migration]
+version = "0.12.0"
+features = [ "runtime-tokio-native-tls" ]
 
 [features]
-postgres = ["sea-orm/sqlx-postgres"]
-mysql = ["sea-orm/sqlx-mysql"]
-sqlite = ["sea-orm/sqlx-sqlite"]
+postgres = ["sea-orm-migration/sqlx-postgres"]
+mysql = ["sea-orm-migration/sqlx-mysql"]
+sqlite = ["sea-orm-migration/sqlx-sqlite"]
+

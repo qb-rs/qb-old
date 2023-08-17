@@ -5,15 +5,15 @@
 # █─██▀─██─██─███─███▀─▀███─▄─▀██▄─▄████─████─▄█▀█
 # ▀───▄▄▀▀▄▄▄▄▀▀▄▄▄▀▄▄█▄▄▀▄▄▄▄▀▀▀▄▄▄▀▀▀▄▄▄▀▀▄▄▄▄▄▀
 # https://github.com/QuixByte/qb/blob/main/LICENSE
-#
+# 
 # (c) Copyright 2023 The QuixByte Authors
 
 [package]
-name = "qb-api"
+name = "qb-entity"
 version.workspace = true
 edition.workspace = true
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-actix = "0.13.0"
+sea-orm = "0.12.2"

@@ -5,20 +5,12 @@
 // █─██▀─██─██─███─███▀─▀███─▄─▀██▄─▄████─████─▄█▀█
 // ▀───▄▄▀▀▄▄▄▄▀▀▄▄▄▀▄▄█▄▄▀▄▄▄▄▀▀▀▄▄▄▀▀▀▄▄▄▀▀▄▄▄▄▄▀
 // https://github.com/QuixByte/qb/blob/main/LICENSE
-//
+// 
 // (c) Copyright 2023 The QuixByte Authors
 
-pub fn add(left: usize, right: usize) -> usize {
-    left + right
-}
+use sea_orm_migration::prelude::*;
 
-#[cfg(test)]
-mod tests {
-    use super::*;
-
-    #[test]
-    fn it_works() {
-        let result = add(2, 2);
-        assert_eq!(result, 4);
-    }
+#[async_std::main]
+async fn main() {
+    cli::run_cli(migration::Migrator).await;
 }
