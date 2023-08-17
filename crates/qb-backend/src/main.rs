@@ -8,8 +8,6 @@
 //
 // (c) Copyright 2023 The QuixByte Authors
 
-#![feature(result_option_inspect)]
-
 use std::env;
 
 use actix_web::{get, web, App, HttpServer, Responder};
@@ -44,7 +42,9 @@ async fn main() -> std::io::Result<()> {
         .with_test_writer()
         .init();
 
-    let _ = dotenv::dotenv().inspect_err(|e| warn!(".env was not loaded successfully: {e:?}"));
+    if let Err(err) = dotenv::dotenv() {
+        warn!(".env was not loaded successfully: {err:?}");
+    }
 
     let redis_url = env::var("REDIS_URL").expect_or_log("REDIS_URL env variable not set");
     let db_url = env::var("DATABASE_URL").expect_or_log("DATABASE_URL env variable not set");
