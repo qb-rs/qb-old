@@ -8,6 +8,9 @@
 //
 // (c) Copyright 2023 The QuixByte Authors
 
+#[macro_use]
+extern crate serde_json;
+
 use std::env;
 
 use actix_web::{get, web, App, HttpServer, Responder};
@@ -17,21 +20,21 @@ use tracing_unwrap::ResultExt;
 
 use qb_migration::{Migrator, MigratorTrait};
 
-struct State {
-    pub redis_pool: r2d2::Pool<redis::Client>,
-    pub db_pool: sea_orm::DatabaseConnection,
-}
+mod auth;
+mod state;
+
+pub use state::State;
 
 #[get("/")]
-async fn index(data: web::Data<State>) -> impl Responder {
-    let redis: &mut r2d2::PooledConnection<redis::Client> = &mut data.redis_pool.get().unwrap();
+async fn index<'a>(state: web::Data<State>) -> impl Responder {
+    let mut redis = state.redis();
     let hit: i32 = redis.incr("page_hits", 1).unwrap();
 
     format!("Hello, World! Page hits: {}", hit)
 }
 
 #[get("/{name}")]
-async fn hello(name: web::Path<String>) -> impl Responder {
+async fn hello<'a>(name: web::Path<String>) -> impl Responder {
     format!("Hello {}!", &name)
 }
 
@@ -61,14 +64,14 @@ async fn main() -> std::io::Result<()> {
         .await
         .expect_or_log("Failed to run database migrations");
 
+    let state = State::new(redis_pool, db_pool);
+
     HttpServer::new(move || {
         App::new()
-            .app_data(web::Data::new(State {
-                redis_pool: redis_pool.clone(),
-                db_pool: db_pool.clone(),
-            }))
+            .app_data(web::Data::new(state.clone()))
             .service(index)
             .service(hello)
+            .service(auth::scope())
     })
     .bind(("127.0.0.1", 8080))?
     .run()

@@ -29,8 +29,16 @@ tracing = "0.1.37"
 tracing-subscriber = "0.3.17"
 tracing-actix-web = "0.7.6"
 tracing-unwrap = "0.10.0"
+argon2 = "0.5.1"
+serde = { version = "1.0.183", features = [ "derive" ] }
+http-api-problem = { version = "0.57.0", features = [ "actix-web" ] }
+rand_core = "0.6.4"
+lazy_static = "1.4.0"
+rand = "0.8.5"
+serde_json = "1.0.105"
 
 [features]
+default = ["postgres"]
 postgres = ["sea-orm/sqlx-postgres"]
 mysql = ["sea-orm/sqlx-mysql"]
 sqlite = ["sea-orm/sqlx-sqlite"]
