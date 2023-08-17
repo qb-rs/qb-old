@@ -1,3 +1,5 @@
+[![CI](https://github.com/QuixByte/qb/actions/workflows/ci.yaml/badge.svg)](https://github.com/QuixByte/qb/actions/workflows/ci.yaml)
+
 ```
   ___        _      ____        _
  / _ \ _   _(___  _| __ ) _   _| |_ ___
