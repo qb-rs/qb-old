@@ -86,5 +86,5 @@ async fn login<'a>(state: web::Data<State>, req: web::Json<LoginUser>) -> impl R
         .set_ex(format!("session:{session}"), user.unwrap().id, 4 * 60 * 60)
         .unwrap_or_log();
 
-    HttpResponse::Ok().json(web::Json(json!({ "session": session })))
+    HttpResponse::Ok().json(json!({ "session": session }))
 }
