@@ -28,7 +28,7 @@ impl MigrationTrait for Migration {
                             .auto_increment()
                             .primary_key(),
                     )
-                    .col(ColumnDef::new(User::Name).string().not_null())
+                    .col(ColumnDef::new(User::Name).string().unique_key().not_null())
                     .col(ColumnDef::new(User::DisplayName).string().not_null())
                     .col(ColumnDef::new(User::Password).string().not_null())
                     .to_owned(),
@@ -50,8 +50,8 @@ enum User {
     // only time that an id is invalidated is after a successful account deletion.
     Id,
     // Used to for QB's users as a readable identifier. This can be updated via the web interface
-    // but is strongly ratelimited. A name identifier must only contain the letters in the latin
-    // alphabeth and its length must be contained in the range 4..=14 => /^[a-zA-Z_]{4, 14}$/
+    // but is strongly ratelimited. A name identifier must only contain the lowercase letters in the latin
+    // alphabeth + '_' and its length must be contained in the range 4..=14 => /^[a-z_]{4, 14}$/
     Name,
     // Used as a more customizable way for users to update their name. This can include any special
     // characters as long the length is contained in the range 1..=50 => /^.{1, 50}$/
