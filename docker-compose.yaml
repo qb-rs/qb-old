@@ -1,0 +1,47 @@
+# SPDX-License-Identifier: AGPL-3.0-only
+
+# ████████████████████████████████████████████████
+# █─▄▄▄─█▄─██─▄█▄─▄█▄─▀─▄█▄─▄─▀█▄─█─▄█─▄─▄─█▄─▄▄─█
+# █─██▀─██─██─███─███▀─▀███─▄─▀██▄─▄████─████─▄█▀█
+# ▀───▄▄▀▀▄▄▄▄▀▀▄▄▄▀▄▄█▄▄▀▄▄▄▄▀▀▀▄▄▄▀▀▀▄▄▄▀▀▄▄▄▄▄▀
+# https://github.com/QuixByte/qb/blob/main/LICENSE
+# 
+# (c) Copyright 2023 The QuixByte Authors
+
+version: "3.8"
+
+services:
+  postgres:
+    image: postgres
+    restart: always
+    environment:
+      PGDATA: /var/lib/postgresql/data
+      POSTGRES_PASSWORD: quixbyte
+    volumes:
+      - db_data:/var/lib/postgresql/data
+      - ./init-db.sql:/docker-entrypoint-initdb.d/init-db.sql
+  redis:
+    image: redis
+  frontend:
+    build:
+      context: .
+      dockerfile: qb-frontend/Dockerfile
+    links:
+      - "backend"
+    ports:
+      - "8080:8080"
+  backend:
+    build:
+      context: .
+      dockerfile: qb-backend/Dockerfile
+      args:
+        FEATURES: postgres
+    environment:
+      REDIS_URL: redis://redis
+      DATABASE_URL: postgres://qb:qb@postgres/qb
+    links:
+      - "postgres"
+      - "redis"
+
+volumes:
+  db_data:

@@ -5,20 +5,32 @@
 # █─██▀─██─██─███─███▀─▀███─▄─▀██▄─▄████─████─▄█▀█
 # ▀───▄▄▀▀▄▄▄▄▀▀▄▄▄▀▄▄█▄▄▀▄▄▄▄▀▀▀▄▄▄▀▀▀▄▄▄▀▀▄▄▄▄▄▀
 # https://github.com/QuixByte/qb/blob/main/LICENSE
-#
+# 
 # (c) Copyright 2023 The QuixByte Authors
 
-[workspace]
-resolver = "2"
-members = [
-  "qb-backend",
-  "qb-entity",
-  "qb-migration",
-]
+# $: docker build -t qb-backend -f qb-backend/Dockerfile .
 
-[workspace.package]
-version = "0.1.0"
-edition = "2021"
+FROM rust:alpine as builder
 
-[profile.release]
-lto = true
+RUN apk add musl-dev pkgconfig
+
+WORKDIR /app
+
+COPY . .
+
+RUN tree
+
+ARG FEATURES=default
+
+RUN --mount=type=cache,target=/usr/local/cargo/registry \
+  --mount=type=cache,target=/app/target \
+  cargo build --bin qb-backend --release --features $FEATURES
+
+RUN --mount=type=cache,target=/app/target \
+  mv target/release/qb-backend /usr/bin/qb-backend
+
+FROM alpine
+
+COPY --from=builder /usr/bin/qb-backend /usr/bin/qb-backend
+
+CMD [ "qb-backend" ]

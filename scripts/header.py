@@ -19,11 +19,16 @@ with open(os.path.join(dn, "../HEADER")) as f:
 spdx_license = "AGPL-3.0-only"
 langs = {
     "rs": "// ",
+    "js": "// ",
+    "ts": "// ",
     "py": "# ",
     "yaml": "# ",
     "toml": "# ",
     "bash": "# ",
     "env": "# ",
+    "conf": "# ",
+    "Dockerfile": "# ",
+    "sql": "-- ",
 }
 
 def construct(ext: str) -> str:
@@ -37,19 +42,47 @@ def construct(ext: str) -> str:
 root = os.path.normpath(os.path.join(dn, ".."))
 
 ignore_exts = [
-    "lock",
     # TODO: add proper file headers for markdown
-    "md"
+    "md",
+    # TODO: add proper file headers for html
+    "html",
+    # TODO: add proper file headers for svelte
+    "svelte",
+    # TODO: add proper file headers for css
+    "css",
+
+    "json",
+
+    # Image files
+    "png",
+    "jpg",
+    "jpeg",
+    "webp",
+    "bmp",
+    "svg",
 ]
 ignore_files = [
     "AUTHORS",
     "HEADER",
     "LICENSE",
-    ".gitignore"
+
+    ".gitignore",
+    ".dockerignore",
+    ".eslintrc",
+
+    # Package lock files
+    "yarn.lock",
+    "bun.lockb",
+    "package-lock.json",
+    "pnpm-lock.yaml",
+    "Cargo.lock",
 ]
 ignore_dirs = [
-    "target",
     "scripts/__pycache__",
+    "qb-frontend/node_modules",
+    "qb-frontend/build",
+    "qb-frontend/.svelte-kit",
+    "target",
     ".git"
 ]
 

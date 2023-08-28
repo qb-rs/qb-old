@@ -12,6 +12,7 @@
 name = "qb-backend"
 version.workspace = true
 edition.workspace = true
+authors = ["Lucas Birkert <lucasbirkert@gmail.com>"]
 
 [dependencies]
 # First-hand dependencies
@@ -23,7 +24,7 @@ actix-web = "4.3.1"
 dotenv = "0.15.0"
 r2d2 = "0.8.10"
 redis = { version = "0.23.2", features = [ "r2d2" ] }
-sea-orm = { version = "0.12.2", features = [ "runtime-tokio-native-tls", "macros" ]}
+sea-orm = { version = "0.12.2", features = [ "runtime-tokio-rustls", "macros" ]}
 log = "0.4.20"
 tracing = "0.1.37"
 tracing-subscriber = "0.3.17"

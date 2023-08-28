@@ -1,0 +1,12 @@
+/target
+/scripts
+.env
+
+/qb-frontend/build
+/qb-frontend/node_modules
+/qb-frontend/.svelte-kit
+
+# Lock files from third party package managers
+/qb-frontend/bun.lockb
+/qb-frontend/yarn.lock
+/qb-frontend/pnpm-lock.yaml

@@ -5,20 +5,22 @@
 # █─██▀─██─██─███─███▀─▀███─▄─▀██▄─▄████─████─▄█▀█
 # ▀───▄▄▀▀▄▄▄▄▀▀▄▄▄▀▄▄█▄▄▀▄▄▄▄▀▀▀▄▄▄▀▀▀▄▄▄▀▀▄▄▄▄▄▀
 # https://github.com/QuixByte/qb/blob/main/LICENSE
-#
+# 
 # (c) Copyright 2023 The QuixByte Authors
 
-[workspace]
-resolver = "2"
-members = [
-  "qb-backend",
-  "qb-entity",
-  "qb-migration",
-]
+[package]
+name = "qb-migration"
+version.workspace = true
+edition.workspace = true
+authors = ["Lucas Birkert <lucasbirkert@gmail.com>"]
 
-[workspace.package]
-version = "0.1.0"
-edition = "2021"
+[dependencies]
+async-std = { version = "1", features = ["attributes", "tokio1"] }
+sea-orm-migration = { version = "0.12.2", features = ["runtime-tokio-rustls"]}
 
-[profile.release]
-lto = true
+[features]
+default = ["postgres"]
+postgres = ["sea-orm-migration/sqlx-postgres"]
+mysql = ["sea-orm-migration/sqlx-mysql"]
+sqlite = ["sea-orm-migration/sqlx-sqlite"]
+

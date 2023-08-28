@@ -13,8 +13,7 @@ extern crate serde_json;
 
 use std::env;
 
-use actix_web::{get, web, App, HttpServer, Responder};
-use redis::Commands;
+use actix_web::{web, App, HttpServer};
 use tracing::warn;
 use tracing_unwrap::ResultExt;
 
@@ -24,19 +23,6 @@ mod auth;
 mod state;
 
 pub use state::State;
-
-#[get("/")]
-async fn index<'a>(state: web::Data<State>) -> impl Responder {
-    let mut redis = state.redis();
-    let hit: i32 = redis.incr("page_hits", 1).unwrap();
-
-    format!("Hello, World! Page hits: {}", hit)
-}
-
-#[get("/{name}")]
-async fn hello<'a>(name: web::Path<String>) -> impl Responder {
-    format!("Hello {}!", &name)
-}
 
 #[actix_web::main]
 async fn main() -> std::io::Result<()> {
@@ -69,11 +55,9 @@ async fn main() -> std::io::Result<()> {
     HttpServer::new(move || {
         App::new()
             .app_data(web::Data::new(state.clone()))
-            .service(index)
-            .service(hello)
             .service(auth::scope())
     })
-    .bind(("127.0.0.1", 8080))?
+    .bind(("0.0.0.0", 8080))?
     .run()
     .await
 }

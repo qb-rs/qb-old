@@ -1,0 +1,8 @@
+/build
+/node_modules
+/.svelte-kit
+
+# Lock files from third party package managers
+/bun.lockb
+/yarn.lock
+/pnpm-lock.yaml

@@ -36,7 +36,7 @@ lazy_static! {
 }
 
 pub fn scope() -> Scope {
-    Scope::new("/auth").service(login).service(register)
+    Scope::new("/auth").service(signin).service(signup)
 }
 
 #[derive(Deserialize, Debug)]
@@ -52,8 +52,8 @@ pub struct RegisterUser {
     pub password: String,
 }
 
-#[post("/login")]
-async fn login(state: web::Data<State>, req: web::Json<LoginUser>) -> impl Responder {
+#[post("/signin")]
+async fn signin(state: web::Data<State>, req: web::Json<LoginUser>) -> impl Responder {
     let user = user::Entity::find()
         .filter(user::Column::Name.eq(req.name.as_str()))
         .one(&state.db_pool)
@@ -75,7 +75,7 @@ async fn login(state: web::Data<State>, req: web::Json<LoginUser>) -> impl Respo
         return HttpApiProblem::new(StatusCode::BAD_REQUEST)
             .title("Invalid credentials")
             .detail("The name identifier and/or password you passed could not be associated with an account.")
-            .type_url("https://quixbyte.com/errors/invalid_credentials")
+            .type_url("https://quixbyte.org/errors/invalid_credentials")
             .instance("/auth/login")
             .to_actix_response();
     }
@@ -91,13 +91,13 @@ async fn login(state: web::Data<State>, req: web::Json<LoginUser>) -> impl Respo
     HttpResponse::Ok().json(json!({ "session": session }))
 }
 
-#[post("/register")]
-async fn register(state: web::Data<State>, req: web::Json<RegisterUser>) -> impl Responder {
+#[post("/signup")]
+async fn signup(state: web::Data<State>, req: web::Json<RegisterUser>) -> impl Responder {
     if !(4..=16).contains(&req.name.len()) {
         return HttpApiProblem::new(StatusCode::BAD_REQUEST)
             .title("Invalid name")
             .detail("The name identifier should be between 4 and 16 characters long.")
-            .type_url("https://quixbyte.com/errors/invalid_name")
+            .type_url("https://quixbyte.org/errors/invalid_name")
             .instance("/auth/register")
             .to_actix_response();
     }
@@ -130,7 +130,7 @@ async fn register(state: web::Data<State>, req: web::Json<RegisterUser>) -> impl
         .unwrap()
         .to_string();
 
-    if let Err(_) = user::Entity::insert(user::ActiveModel {
+    if user::Entity::insert(user::ActiveModel {
         name: sea_orm::Set(req.name.clone()),
         display_name: sea_orm::Set(req.display_name.clone()),
         password: sea_orm::Set(password),
@@ -138,6 +138,7 @@ async fn register(state: web::Data<State>, req: web::Json<RegisterUser>) -> impl
     })
     .exec(&state.db_pool)
     .await
+    .is_err()
     {
         return HttpApiProblem::new(StatusCode::CONFLICT)
             .title("User conflict")
