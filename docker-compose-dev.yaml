@@ -25,15 +25,22 @@ services:
   qb-proxy:
     build:
       context: .
-      dockerfile: ./qb-proxy/Dockerfile
+      dockerfile: ./qb-proxy/dev.Dockerfile
     links:
       - "qb-backend"
+      - "qb-frontend"
     ports:
       - "8080:8080"
+  qb-frontend:
+    build:
+      context: .
+      dockerfile: ./qb-frontend/dev.Dockerfile
+    volumes:
+      - ./:/app
   qb-backend:
     build:
       context: .
-      dockerfile: ./qb-backend/Dockerfile
+      dockerfile: ./qb-backend/dev.Dockerfile
       args:
         FEATURES: postgres
     environment:
@@ -42,6 +49,8 @@ services:
     links:
       - "qb-db"
       - "qb-cache"
+    volumes:
+      - ./:/app
 
 volumes:
   db_data:

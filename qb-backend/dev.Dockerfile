@@ -14,21 +14,15 @@ FROM rust:alpine as builder
 
 RUN apk add musl-dev pkgconfig
 
+RUN --mount=type=cache,target=/usr/local/cargo/registry \
+  --mount=type=cache,target=/app/cargo-watch \
+  cargo install cargo-watch --root cargo-watch
+
 WORKDIR /app
 
 COPY . .
 
 ARG FEATURES=default
 
-RUN --mount=type=cache,target=/usr/local/cargo/registry \
-  --mount=type=cache,target=/app/target \
-  cargo build --bin qb-backend --release --features $FEATURES
 
-RUN --mount=type=cache,target=/app/target \
-  mv target/release/qb-backend /usr/bin/qb-backend
-
-FROM scratch
-
-COPY --from=builder /usr/bin/qb-backend /usr/bin/qb-backend
-
-CMD [ "qb-backend" ]
+CMD [ "cargo", "watch", "-x", "run", "--features", $FEATURES ]

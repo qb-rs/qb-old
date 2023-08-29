@@ -8,27 +8,18 @@
 # 
 # (c) Copyright 2023 The QuixByte Authors
 
-# $: docker build -t qb-backend -f qb-backend/Dockerfile .
+FROM node:alpine as frontend-builder
 
-FROM rust:alpine as builder
+WORKDIR /app/qb-frontend
 
-RUN apk add musl-dev pkgconfig
+COPY qb-frontend/package*.json . 
+RUN npm ci --omit=dev
 
-WORKDIR /app
+COPY . ..
 
-COPY . .
+RUN npm run build
 
-ARG FEATURES=default
+FROM nginx
 
-RUN --mount=type=cache,target=/usr/local/cargo/registry \
-  --mount=type=cache,target=/app/target \
-  cargo build --bin qb-backend --release --features $FEATURES
-
-RUN --mount=type=cache,target=/app/target \
-  mv target/release/qb-backend /usr/bin/qb-backend
-
-FROM scratch
-
-COPY --from=builder /usr/bin/qb-backend /usr/bin/qb-backend
-
-CMD [ "qb-backend" ]
+COPY qb-proxy/nginx.conf /etc/nginx/nginx.conf
+COPY --from=frontend-builder /app/qb-frontend/build/ /usr/share/nginx/html/
