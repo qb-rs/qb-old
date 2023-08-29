@@ -55,7 +55,7 @@ pub struct RegisterUser {
 
 #[post("/signin")]
 async fn signin(state: web::Data<State>, req: web::Json<LoginUser>) -> impl Responder {
-    const INSTANCE: &'static str = "/api/auth/signin";
+    const INSTANCE: &str = "/api/auth/signin";
 
     let user = user::Entity::find()
         .filter(user::Column::Name.eq(req.name.as_str()))
@@ -104,7 +104,7 @@ async fn signin(state: web::Data<State>, req: web::Json<LoginUser>) -> impl Resp
 
 #[post("/signup")]
 async fn signup(state: web::Data<State>, req: web::Json<RegisterUser>) -> impl Responder {
-    const INSTANCE: &'static str = "/api/auth/signup";
+    const INSTANCE: &str = "/api/auth/signup";
 
     if !(4..=16).contains(&req.name.len()) {
         return HttpApiProblem::new(StatusCode::BAD_REQUEST)

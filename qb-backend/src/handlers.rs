@@ -1,3 +1,13 @@
+// SPDX-License-Identifier: AGPL-3.0-only
+
+// ████████████████████████████████████████████████
+// █─▄▄▄─█▄─██─▄█▄─▄█▄─▀─▄█▄─▄─▀█▄─█─▄█─▄─▄─█▄─▄▄─█
+// █─██▀─██─██─███─███▀─▀███─▄─▀██▄─▄████─████─▄█▀█
+// ▀───▄▄▀▀▄▄▄▄▀▀▄▄▄▀▄▄█▄▄▀▄▄▄▄▀▀▀▄▄▄▀▀▀▄▄▄▀▀▄▄▄▄▄▀
+// https://github.com/QuixByte/qb/blob/main/LICENSE
+
+// (c) Copyright 2023 The QuixByte Authors
+
 use actix_web::{
     dev::ServiceResponse, error::JsonPayloadError, middleware::ErrorHandlerResponse, HttpRequest,
     Result,
@@ -20,8 +30,8 @@ pub fn handle_not_found<B>(res: ServiceResponse<B>) -> Result<ErrorHandlerRespon
 
     Ok(ErrorHandlerResponse::Response(res))
 }
-//for<'a> fn(JsonPayloadError, &'a HttpRequest) -> _
-pub fn handle_json_error<'a>(err: JsonPayloadError, req: &'a HttpRequest) -> actix_web::Error {
+
+pub fn handle_json_error(err: JsonPayloadError, req: &HttpRequest) -> actix_web::Error {
     let mut prob = HttpApiProblem::new(StatusCode::UNPROCESSABLE_ENTITY)
         .title("Invalid json payload")
         .detail("An error occured while processing the json payload.")
