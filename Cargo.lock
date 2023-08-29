@@ -2054,6 +2054,7 @@ dependencies = [
  "http-api-problem",
  "lazy_static",
  "log",
+ "paste",
  "qb-entity",
  "qb-migration",
  "r2d2",

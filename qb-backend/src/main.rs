@@ -13,13 +13,15 @@ extern crate serde_json;
 
 use std::env;
 
-use actix_web::{web, App, HttpServer};
+use actix_web::{http::StatusCode, middleware::ErrorHandlers, web, App, HttpServer};
 use tracing::warn;
 use tracing_unwrap::ResultExt;
 
 use qb_migration::{Migrator, MigratorTrait};
 
-mod auth;
+mod handlers;
+mod prob;
+mod routes;
 mod state;
 
 pub use state::State;
@@ -55,7 +57,9 @@ async fn main() -> std::io::Result<()> {
     HttpServer::new(move || {
         App::new()
             .app_data(web::Data::new(state.clone()))
-            .service(auth::scope())
+            .service(routes::scope())
+            .app_data(web::JsonConfig::default().error_handler(handlers::handle_json_error))
+            .wrap(ErrorHandlers::new().handler(StatusCode::NOT_FOUND, handlers::handle_not_found))
     })
     .bind(("0.0.0.0", 8080))?
     .run()

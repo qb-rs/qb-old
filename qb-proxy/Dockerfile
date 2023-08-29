@@ -21,5 +21,8 @@ RUN npm run build
 
 FROM nginx
 
-COPY qb-proxy/nginx.conf /etc/nginx/nginx.conf
+WORKDIR /etc/nginx/
+
+COPY qb-proxy/*.conf .
+
 COPY --from=frontend-builder /app/qb-frontend/build/ /usr/share/nginx/html/

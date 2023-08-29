@@ -26,6 +26,7 @@ use tracing_unwrap::ResultExt;
 
 use qb_entity::user;
 
+use crate::prob::*;
 use crate::State;
 
 lazy_static! {
@@ -54,51 +55,63 @@ pub struct RegisterUser {
 
 #[post("/signin")]
 async fn signin(state: web::Data<State>, req: web::Json<LoginUser>) -> impl Responder {
+    const INSTANCE: &'static str = "/api/auth/signin";
+
     let user = user::Entity::find()
         .filter(user::Column::Name.eq(req.name.as_str()))
         .one(&state.db_pool)
         .await
         .unwrap_or_log();
 
-    // We use a dummy hash to provide safety against timing attacks for leaking weather certain
-    // users are registered or wether they are not.
-    let password = match user {
-        Some(ref user) => PasswordHash::new(user.password.as_str()).unwrap_or_log(),
-        // TODO: remove unnessecary clone
-        _ => DUMMY_HASH.clone(),
+    let argon2 = Argon2::default();
+    let is_valid = match user {
+        Some(ref user) => argon2
+            .verify_password(
+                req.password.as_bytes(),
+                &PasswordHash::new(user.password.as_str()).unwrap_or_log(),
+            )
+            .is_ok(),
+        _ => {
+            // We use a dummy hash to provide safety against timing attacks for leaking weather certain
+            // users are registered or wether they are not.
+            // TODO: find out if rustc optimizes this out.
+            argon2
+                .verify_password(req.password.as_bytes(), &DUMMY_HASH)
+                .ok();
+            false
+        }
     };
 
-    if !Argon2::default()
-        .verify_password(req.password.as_bytes(), &password)
-        .is_ok_and(|_| user.is_some())
-    {
-        return HttpApiProblem::new(StatusCode::BAD_REQUEST)
+    if is_valid {
+        let session = Alphanumeric.sample_string(&mut OsRng, 16);
+
+        // session tokens expire within 4 hours
+        let _: () = state
+            .redis()
+            .set_ex(format!("session:{session}"), user.unwrap().id, 4 * 60 * 60)
+            .unwrap_or_log();
+
+        HttpResponse::Ok().json(json!({ "session": session }))
+    } else {
+        HttpApiProblem::new(StatusCode::BAD_REQUEST)
             .title("Invalid credentials")
             .detail("The name identifier and/or password you passed could not be associated with an account.")
-            .type_url("https://quixbyte.org/errors/invalid_credentials")
-            .instance("/auth/login")
-            .to_actix_response();
+            .type_url(INVALID_CREDENTIALS)
+            .instance(INSTANCE)
+            .to_actix_response()
     }
-
-    let session = Alphanumeric.sample_string(&mut OsRng, 16);
-
-    // session tokens expire within 4 hours
-    let _: () = state
-        .redis()
-        .set_ex(format!("session:{session}"), user.unwrap().id, 4 * 60 * 60)
-        .unwrap_or_log();
-
-    HttpResponse::Ok().json(json!({ "session": session }))
 }
 
 #[post("/signup")]
 async fn signup(state: web::Data<State>, req: web::Json<RegisterUser>) -> impl Responder {
+    const INSTANCE: &'static str = "/api/auth/signup";
+
     if !(4..=16).contains(&req.name.len()) {
         return HttpApiProblem::new(StatusCode::BAD_REQUEST)
             .title("Invalid name")
             .detail("The name identifier should be between 4 and 16 characters long.")
-            .type_url("https://quixbyte.org/errors/invalid_name")
-            .instance("/auth/register")
+            .type_url(INVALID_NAME)
+            .instance(INSTANCE)
             .to_actix_response();
     }
 
@@ -111,8 +124,8 @@ async fn signup(state: web::Data<State>, req: web::Json<RegisterUser>) -> impl R
         return HttpApiProblem::new(StatusCode::BAD_REQUEST)
             .title("Invalid name")
             .detail("The name identifier should only contain a-z + '_'.")
-            .type_url("https://quixbyte.com/errors/invalid_name")
-            .instance("/auth/register")
+            .type_url(INVALID_NAME)
+            .instance(INSTANCE)
             .to_actix_response();
     }
 
@@ -120,8 +133,8 @@ async fn signup(state: web::Data<State>, req: web::Json<RegisterUser>) -> impl R
         return HttpApiProblem::new(StatusCode::BAD_REQUEST)
             .title("Invalid display name")
             .detail("The display name should be between 1 and 50 characters long.")
-            .type_url("https://quixbyte.com/errors/invalid_display_name")
-            .instance("/auth/register")
+            .type_url(INVALID_DISPLAY_NAME)
+            .instance(INSTANCE)
             .to_actix_response();
     }
 
@@ -143,8 +156,8 @@ async fn signup(state: web::Data<State>, req: web::Json<RegisterUser>) -> impl R
         return HttpApiProblem::new(StatusCode::CONFLICT)
             .title("User conflict")
             .detail("A user with this name identifier already exists.")
-            .type_url("https://quixbyte.com/errors/user_conflict")
-            .instance("/auth/register")
+            .type_url(CONFLICT_USER)
+            .instance(INSTANCE)
             .to_actix_response();
     }
 

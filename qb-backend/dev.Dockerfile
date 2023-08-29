@@ -32,5 +32,4 @@ CMD cargo watch \
   -w qb-backend \
   -w qb-migration \
   -w qb-entity \
-  --debug \
   -x "run --bin qb-backend --features ${FEATURES}"

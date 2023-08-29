@@ -8,5 +8,8 @@
 
 <!-- (c) Copyright 2023 The QuixByte Authors -->
 
-<div style="background: #CCC"><slot /></div>
+<script lang="ts">
+  import "../app.css";
+</script>
 
+<slot />

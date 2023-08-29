@@ -10,4 +10,8 @@
 
 FROM nginx
 
-COPY qb-proxy/nginx-dev.conf /etc/nginx/nginx.conf
+WORKDIR /etc/nginx/
+
+COPY qb-proxy/*.conf .
+
+RUN mv nginx-dev.conf nginx.conf
