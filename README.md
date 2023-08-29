@@ -1,3 +1,13 @@
+<!-- SPDX-License-Identifier: AGPL-3.0-only -->
+
+<!-- ████████████████████████████████████████████████ -->
+<!-- █─▄▄▄─█▄─██─▄█▄─▄█▄─▀─▄█▄─▄─▀█▄─█─▄█─▄─▄─█▄─▄▄─█ -->
+<!-- █─██▀─██─██─███─███▀─▀███─▄─▀██▄─▄████─████─▄█▀█ -->
+<!-- ▀───▄▄▀▀▄▄▄▄▀▀▄▄▄▀▄▄█▄▄▀▄▄▄▄▀▀▀▄▄▄▀▀▀▄▄▄▀▀▄▄▄▄▄▀ -->
+<!-- https://github.com/QuixByte/qb/blob/main/LICENSE -->
+
+<!-- (c) Copyright 2023 The QuixByte Authors -->
+
 [![CI](https://github.com/QuixByte/qb/actions/workflows/ci.yaml/badge.svg)](https://github.com/QuixByte/qb/actions/workflows/ci.yaml)
 
 ```

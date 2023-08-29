@@ -5,7 +5,7 @@
 # █─██▀─██─██─███─███▀─▀███─▄─▀██▄─▄████─████─▄█▀█
 # ▀───▄▄▀▀▄▄▄▄▀▀▄▄▄▀▄▄█▄▄▀▄▄▄▄▀▀▀▄▄▄▀▀▀▄▄▄▀▀▄▄▄▄▄▀
 # https://github.com/QuixByte/qb/blob/main/LICENSE
-#
+
 # (c) Copyright 2023 The QuixByte Authors
 
 import os
@@ -16,41 +16,47 @@ dn = os.path.dirname(os.path.realpath(__file__))
 with open(os.path.join(dn, "../HEADER")) as f:
     header_template = f.readlines()
 
+def prefix(pre):
+    return lambda s: pre + s
+
+def xml(s):
+    return "<!-- " + s + " -->"
+
+def css(s):
+    return "/* " + s + " */"
+
 spdx_license = "AGPL-3.0-only"
 langs = {
-    "rs": "// ",
-    "js": "// ",
-    "ts": "// ",
-    "py": "# ",
-    "yaml": "# ",
-    "toml": "# ",
-    "bash": "# ",
-    "env": "# ",
-    "conf": "# ",
-    "Dockerfile": "# ",
-    "sql": "-- ",
+    "rs": prefix("// "),
+    "js": prefix("// "),
+    "ts": prefix("// "),
+    "py": prefix("# "),
+    "yaml": prefix("# "),
+    "toml": prefix("# "),
+    "bash": prefix("# "),
+    "env": prefix("# "),
+    "conf": prefix("# "),
+    "Dockerfile": prefix("# "),
+    "sql": prefix("-- "),
+    "md": xml,
+    "html": xml,
+    "svelte": xml,
+    "css": css,
 }
 
 def construct(ext: str) -> str:
     comment = langs[ext]
-    spdx = f"{comment}SPDX-License-Identifier: {spdx_license}\n\n"
-    header = "".join([ comment + line for line in header_template ])
+    header = "".join([
+        (comment(line.rstrip()) if line.rstrip() else "") + "\n"
+        for line in header_template
+    ])
 
-    return spdx + header
+    return header
 
 # Code for checking
 root = os.path.normpath(os.path.join(dn, ".."))
 
 ignore_exts = [
-    # TODO: add proper file headers for markdown
-    "md",
-    # TODO: add proper file headers for html
-    "html",
-    # TODO: add proper file headers for svelte
-    "svelte",
-    # TODO: add proper file headers for css
-    "css",
-
     "json",
 
     # Image files
