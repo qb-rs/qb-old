@@ -16,13 +16,21 @@ RUN apk add musl-dev pkgconfig
 
 RUN --mount=type=cache,target=/usr/local/cargo/registry \
   --mount=type=cache,target=/app/cargo-watch \
-  cargo install cargo-watch --root cargo-watch
+  cargo install cargo-watch --target-dir cargo-watch
+
+RUN --mount=type=cache,target=/app/cargo-watch \
+  tree
 
 WORKDIR /app
 
 COPY . .
 
 ARG FEATURES=default
+ENV FEATURES=$FEATURES
 
-
-CMD [ "cargo", "watch", "-x", "run", "--features", $FEATURES ]
+CMD cargo watch \
+  -w qb-backend \
+  -w qb-migration \
+  -w qb-entity \
+  --debug \
+  -x "run --bin qb-backend --features ${FEATURES}"
