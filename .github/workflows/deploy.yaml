@@ -31,7 +31,6 @@ jobs:
         working-directory: sites/quixbyte.org
     steps:
       - uses: actions/checkout@v2
-      - run: python scripts/header.py
       - uses: actions/setup-node@v3.4.1
         with:
           node-version: 16
