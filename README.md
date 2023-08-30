@@ -9,6 +9,7 @@
 <!-- (c) Copyright 2023 The QuixByte Authors -->
 
 [![CI](https://github.com/QuixByte/qb/actions/workflows/ci.yaml/badge.svg)](https://github.com/QuixByte/qb/actions/workflows/ci.yaml)
+[![Deploy sites](https://github.com/QuixByte/qb/actions/workflows/deploy.yaml/badge.svg)](https://github.com/QuixByte/qb/actions/workflows/deploy.yaml)
 
 ```
   ___        _      ____        _
