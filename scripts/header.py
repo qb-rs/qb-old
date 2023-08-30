@@ -84,12 +84,12 @@ ignore_files = [
     "Cargo.lock",
 ]
 ignore_dirs = [
-    "scripts/__pycache__",
-    "qb-frontend/node_modules",
-    "qb-frontend/build",
-    "qb-frontend/.svelte-kit",
-    "target",
-    ".git"
+    "__pycache__/",
+    "node_modules/",
+    "build/",
+    ".svelte-kit/",
+    "target/",
+    ".git/"
 ]
 
 write = len(sys.argv) == 2 and sys.argv[1] == "write"
@@ -105,7 +105,7 @@ for subdir, _, files in os.walk(root):
 
         found = False
         for ignore_dir in ignore_dirs:
-            if relsubdir.startswith(ignore_dir + "/"):
+            if ignore_dir in relsubdir:
                 found = True
 
         if found:
