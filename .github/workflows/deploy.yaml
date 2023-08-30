@@ -13,7 +13,7 @@ name: Deploy sites
 on: 
   push:
     branches:
-      - master
+      - main
   pull_request:
     paths:
       - sites/quixbyte.org
