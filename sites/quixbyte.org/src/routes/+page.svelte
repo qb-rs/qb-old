@@ -20,7 +20,7 @@
 
 <section class="hero">
     <h1>QuixByte</h1>
-    <p>Backup & sync with ease</p>
+    <p>Blazingly fast alternative to NextCloud&trade; & co</p>
     <ul>
         <li>
             <a href="https://github.com/QuixByte/qb" class="button"
@@ -41,6 +41,11 @@
     <span>&gt; bleeding edge tech stack</span>
     <h1>Performance to an extreme.</h1>
 
+    <p>
+        Lorem ipsum dolor sit amet, qui minim labore adipisicing minim sint
+        cillum sint consectetur cupidatat.
+    </p>
+
     <ul>
         <li>
             <a href="/" class="button"
@@ -56,6 +61,11 @@
     <span>&gt; file encryption + e2e file sync</span>
     <h1>Built with Privacy in mind.</h1>
 
+    <p>
+        Lorem ipsum dolor sit amet, qui minim labore adipisicing minim sint
+        cillum sint consectetur cupidatat.
+    </p>
+
     <ul>
         <li>
             <a href="https://github.com/QuixByte/qb" class="button"
@@ -70,6 +80,11 @@
 <section>
     <span>&gt; your data - your server</span>
     <h1>Selfhostable with ease.</h1>
+
+    <p>
+        Lorem ipsum dolor sit amet, qui minim labore adipisicing minim sint
+        cillum sint consectetur cupidatat.
+    </p>
 
     <ul>
         <li>
@@ -114,10 +129,10 @@
 
     span {
         display: inline-block;
-        font-size: 2rem;
+        font-size: 36px;
         font-family: "Handjet", cursive;
         color: blue;
-        margin-bottom: 0.5rem;
+        margin-bottom: 0.3em;
     }
 
     section {
@@ -142,6 +157,38 @@
     footer {
         padding-top: 3rem;
         font-size: 14px;
+        font-family: "Inter", sans-serif;
+    }
+
+    @media (max-width: 500px) {
+        span {
+            font-size: 30px;
+        }
+
+        section h1 {
+            font-size: 40px;
+        }
+
+        section p {
+            font-size: 20px;
+        }
+
+        .button {
+            font-size: 18px;
+        }
+
+        .hero {
+            text-align: center;
+        }
+
+        .hero ul {
+            justify-content: center;
+        }
+
+        footer {
+            font-size: 12px;
+            text-align: center;
+        }
     }
 
     hr {

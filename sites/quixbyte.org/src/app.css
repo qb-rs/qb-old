@@ -14,6 +14,9 @@
   padding: 0;
 }
 
+body {
+  font-family: "Metropolis", sans-serif;
+}
   
 h1 {
   font-family: "Teko", sans-serif;
@@ -24,11 +27,9 @@ h1 {
 }
 
 p {
-  font-family: "Inter", sans-serif;
   color: #222;
-  line-height: 1.6em;
+  line-height: 1.4em;
 }
-
 
 .link {
   text-decoration: none;
@@ -71,7 +72,7 @@ p {
     border-color 0.3s ease, outline 0.3s ease;
 }
 
-.button:hover {
+.button:hover, .button:active {
   background-color: #55f;
   border-color: #44f;
   color: white;

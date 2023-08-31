@@ -13,6 +13,7 @@
 
   import "@fontsource/teko/latin-700.css";
   import "@fontsource/inter/latin-400.css";
+  import "@fontsource/metropolis/latin-400.css";
 </script>
 
 <main>
