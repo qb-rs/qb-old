@@ -7,3 +7,129 @@
 /* https://github.com/QuixByte/qb/blob/main/LICENSE */
 
 /* (c) Copyright 2023 The QuixByte Authors */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Inter", sans-serif;
+  background-image: url("/quixbyte_bg_light.svg");
+}
+
+h1,h2,h3,h4,h5 {
+  color: #000c2a;
+}
+
+p {
+  line-height: 1.4em;
+  color: #333f55;
+}
+
+button {
+  font-size: 18px;
+  display: inline-block;
+  padding: 0.4em 0.8em;
+  border-radius: 0.6em;
+  text-decoration: none;
+  cursor: pointer;
+  background-color: transparent;
+  background-color: #55f;
+  border: 2px solid transparent;
+  color: white;
+  transition: background-color 0.3s ease,
+    border-color 0.3s ease;
+}
+
+button:hover, button:active {
+  border-color: #44f;
+  background-color: #66f;
+}
+
+input:focus {
+  outline: 0.2em solid rgba(0, 0, 255, 0.2);
+  animation: 3s outline linear infinite;
+}
+
+button:focus {
+  outline: 0.2em solid rgba(0, 0, 255, 0.2);
+  animation: 3s outline linear infinite;
+}
+
+@keyframes outline {
+  50% {
+    outline-color: rgba(100, 100, 255, 0.2);
+  }
+}
+
+.link {
+  text-decoration: none;
+  color: blue;
+  position: relative;
+
+  transition: color 0.3s ease-in-out;
+}
+
+.link:hover {
+  color: #44f;
+}
+
+.link::before {
+  content: "";
+  display: inline-block;
+  position: absolute;
+  width: 0;
+  height: 1px;
+  background-color: #44f;
+  left: 0;
+  bottom: 0;
+  transition: width 0.3s ease-in-out;
+}
+
+.link:hover::before {
+  width: 100%;
+}
+
+.field {
+  position: relative;
+}
+
+.field label {
+  position: absolute;
+  left: 17px;
+  top: 0;
+  padding: 0px 5px;
+  transform: translateY(12px);
+  background-color: transparent;
+  transition: transform 0.3s ease, background-color 0.3s ease;
+  color: #888;
+}
+
+.field input:focus + label,
+.field.content label {
+  transform: translate(-10%, -50%) scale(0.8);
+  background-color: white;
+}
+
+.field input:focus + label {
+  color: #44f;
+}
+
+input {
+  padding: 10px 20px;
+  border-radius: 10px;
+  border: 2px solid rgba(0, 0, 0, 0.1);
+  width: 100%;
+  font-size: 16px;
+  font-family: "Inter", sans-serif;
+}
+
+input:focus {
+  border-color: rgba(100, 100, 255, 0.8);
+}
+
+.fnote {
+  font-size: 14px;
+}
