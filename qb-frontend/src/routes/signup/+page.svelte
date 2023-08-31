@@ -16,12 +16,9 @@
 
 <main>
   <form>
-    <h1>Create your account</h1>
+    <img src="/quixbyte_full.svg" alt="QuixByte" />
 
-    <p>
-      Lorem ipsum dolor sit amet, qui minim labore adipisicing minim sint cillum
-      sint consectetur cupidatat.
-    </p>
+    <p>Create your own QuixByte account</p>
 
     <br />
 
@@ -44,13 +41,15 @@
       <input
         name="cpassword"
         id="cpassword"
-        type="cpassword"
+        type="password"
         bind:value={cpassword}
       />
       <label for="password">Confirm password</label>
     </div>
 
     <button>Continue</button>
+
+    <br />
 
     <p class="fnote">
       Already have an account? <a class="link" href="/signin">Sign in</a>
@@ -64,6 +63,9 @@
     align-items: center;
     justify-content: center;
     min-height: 100vh;
+    padding: 20px 0;
+    background-image: url("/quixbyte_bg_light.svg");
+    background-size: 180px;
   }
 
   form {
@@ -72,9 +74,26 @@
     row-gap: 20px;
     width: 100%;
     max-width: 450px;
-    padding: 40px 40px;
+    padding: 40px 60px;
     background-color: white;
     border-radius: 20px;
-    border: 1px solid rgba(0, 0, 0, 0.1);
+    box-shadow: 0px 0px 40px 20px rgba(0, 0, 0, 0.05);
+  }
+
+  img {
+    width: 100%;
+  }
+
+  @media (max-width: 450px) {
+    form {
+      box-shadow: none;
+      padding: 40px 0;
+      width: 85%;
+    }
+
+    main {
+      background-image: none;
+      align-items: start;
+    }
   }
 </style>

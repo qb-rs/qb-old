@@ -16,7 +16,6 @@
 
 body {
   font-family: "Inter", sans-serif;
-  background-image: url("/quixbyte_bg_light.svg");
 }
 
 h1,h2,h3,h4,h5 {
@@ -37,14 +36,12 @@ button {
   cursor: pointer;
   background-color: transparent;
   background-color: #55f;
-  border: 2px solid transparent;
-  color: white;
-  transition: background-color 0.3s ease,
-    border-color 0.3s ease;
+  border: none;
+  color: #fff;
+  transition: background-color 0.3s ease;
 }
 
 button:hover, button:active {
-  border-color: #44f;
   background-color: #66f;
 }
 
@@ -98,7 +95,7 @@ button:focus {
 
 .field label {
   position: absolute;
-  left: 17px;
+  left: 12px;
   top: 0;
   padding: 0px 5px;
   transform: translateY(12px);
@@ -118,9 +115,9 @@ button:focus {
 }
 
 input {
-  padding: 10px 20px;
+  padding: 10px 15px;
   border-radius: 10px;
-  border: 2px solid rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(0, 0, 0, 0.1);
   width: 100%;
   font-size: 16px;
   font-family: "Inter", sans-serif;

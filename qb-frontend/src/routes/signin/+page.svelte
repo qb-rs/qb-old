@@ -15,7 +15,7 @@
 
 <main>
   <form>
-    <h1>Welcome back</h1>
+    <img src="/quixbyte_full.svg" alt="QuixByte" />
 
     <p>Please sign in to continue.</p>
 
@@ -38,6 +38,8 @@
 
     <button>Continue</button>
 
+    <br />
+
     <p class="fnote">
       Don't have an account? <a class="link" href="/signup">Sign up</a>
     </p>
@@ -50,6 +52,9 @@
     align-items: center;
     justify-content: center;
     min-height: 100vh;
+    padding: 20px 0;
+    background-image: url("/quixbyte_bg_light.svg");
+    background-size: 180px;
   }
 
   form {
@@ -58,9 +63,26 @@
     row-gap: 20px;
     width: 100%;
     max-width: 450px;
-    padding: 40px 40px;
+    padding: 40px 60px;
     background-color: white;
     border-radius: 20px;
-    border: 1px solid rgba(0, 0, 0, 0.1);
+    box-shadow: 0px 0px 40px 20px rgba(0, 0, 0, 0.05);
+  }
+
+  img {
+    width: 100%;
+  }
+
+  @media (max-width: 450px) {
+    form {
+      box-shadow: none;
+      padding: 40px 0;
+      width: 85%;
+    }
+
+    main {
+      background-image: none;
+      align-items: start;
+    }
   }
 </style>

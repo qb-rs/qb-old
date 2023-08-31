@@ -18,13 +18,15 @@
 
 <slot />
 
+<!--
 <p>Powered by <a class="link" href="https://quixbyte.tech">QuixByte</a></p>
 
 <style>
   p {
-    position: absolute;
+    position: fixed;
     left: 10px;
     bottom: 5px;
     font-size: 14px;
   }
 </style>
+-->
