@@ -19,7 +19,7 @@
 </script>
 
 <section class="hero">
-    <h1>QuixByte</h1>
+    <img src="/quixbyte_full.svg" alt="QuixByte" />
     <p>Blazingly fast alternative to NextCloud&trade; & co</p>
     <ul>
         <li>
@@ -114,9 +114,11 @@
 </footer>
 
 <style>
-    .hero h1 {
+    .hero img {
+        height: 6rem;
         font-size: 5rem;
         font-family: "Teko", sans-serif;
+        margin-bottom: 2rem;
     }
 
     .hero p {
@@ -181,8 +183,9 @@
             font-size: 17px;
         }
 
-        .hero h1 {
+        .hero img {
             font-size: 60px;
+            max-width: 90%;
         }
 
         .hero p {
