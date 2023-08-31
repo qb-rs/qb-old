@@ -25,8 +25,8 @@
 <section class="hero">
     <img src="/quixbyte_full.svg" alt="QuixByte" />
     <p>
-        An opensource file service, which allows users to quickly synchronize
-        and backup their files across multiple devices.
+        QuixByte is an opensource file service, which allows users to quickly
+        synchronize and backup their files across multiple devices.
     </p>
     <ul>
         <li>
@@ -123,13 +123,9 @@
 <style>
     .hero img {
         height: 6rem;
-        font-size: 5rem;
         font-family: "Teko", sans-serif;
-        margin-bottom: 2rem;
-    }
-
-    .hero p {
-        font-size: 1.5rem;
+        font-size: 5rem;
+        margin-bottom: 20px;
     }
 
     .hero {
@@ -149,10 +145,6 @@
         margin-bottom: 8rem;
     }
 
-    section h1 {
-        margin-bottom: 2rem;
-    }
-
     section p {
         font-size: 20px;
         max-width: 560px;
@@ -164,7 +156,7 @@
         list-style: none;
         column-gap: 10px;
 
-        margin-top: 2rem;
+        margin-top: 40px;
     }
 
     footer {
@@ -191,12 +183,7 @@
         }
 
         .hero img {
-            font-size: 60px;
             max-width: 90%;
-        }
-
-        .hero p {
-            font-size: 19px;
         }
 
         footer {
