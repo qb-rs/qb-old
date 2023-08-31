@@ -66,6 +66,7 @@ ignore_exts = [
     "webp",
     "bmp",
     "svg",
+    "ico",
 ]
 ignore_files = [
     "AUTHORS",
