@@ -28,11 +28,10 @@ p {
 }
 
 button {
-  font-size: 18px;
   display: inline-block;
-  padding: 0.4em 0.8em;
-  border-radius: 0.6em;
-  text-decoration: none;
+  padding: 10px 15px;
+  border-radius: 10px;
+  font-size: 16px;
   cursor: pointer;
   background-color: transparent;
   background-color: #55f;
@@ -43,11 +42,6 @@ button {
 
 button:hover, button:active {
   background-color: #66f;
-}
-
-input:focus {
-  outline: 0.2em solid rgba(0, 0, 255, 0.2);
-  animation: 3s outline linear infinite;
 }
 
 button:focus {
@@ -124,6 +118,8 @@ input {
 }
 
 input:focus {
+  outline: 0.2em solid rgba(0, 0, 255, 0.2);
+  animation: 3s outline linear infinite;
   border-color: rgba(100, 100, 255, 0.8);
 }
 

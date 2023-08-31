@@ -57,10 +57,18 @@
     background-size: 180px;
   }
 
+  br {
+    margin: 10px 0;
+  }
+
+  button {
+    margin-top: 10px;
+  }
+
   form {
     display: flex;
     flex-direction: column;
-    row-gap: 20px;
+    row-gap: 10px;
     width: 100%;
     max-width: 450px;
     padding: 40px 60px;
@@ -83,6 +91,7 @@
     main {
       background-image: none;
       align-items: start;
+      padding: 60px 0;
     }
   }
 </style>
