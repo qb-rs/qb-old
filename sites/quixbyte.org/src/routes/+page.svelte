@@ -18,9 +18,16 @@
     import { faDiscord, faGithub } from "@fortawesome/free-brands-svg-icons";
 </script>
 
+<svelte:head>
+    <title>QuixByte - Sync with ease</title>
+</svelte:head>
+
 <section class="hero">
     <img src="/quixbyte_full.svg" alt="QuixByte" />
-    <p>Blazingly fast alternative to NextCloud&trade; & co</p>
+    <p>
+        An opensource file service, which allows users to quickly synchronize
+        and backup their files across multiple devices.
+    </p>
     <ul>
         <li>
             <a href="https://github.com/QuixByte/qb" class="button"
