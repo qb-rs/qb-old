@@ -15,7 +15,7 @@
 }
 
 body {
-  font-family: "Metropolis", sans-serif;
+  font-family: "Inter", sans-serif;
 }
   
 h1 {
@@ -24,11 +24,12 @@ h1 {
   letter-spacing: -20%;
   line-height: 1em;
   margin-bottom: 0.3em;
+  color: #000c2a;
 }
 
 p {
-  color: #222;
   line-height: 1.4em;
+  color: #333f55;
 }
 
 .link {
@@ -60,14 +61,13 @@ p {
 }
 
 .button {
-  font-family: "Inter", sans-serif;
   font-size: 20px;
   display: inline-block;
   padding: 0.4em 0.8em;
   border-radius: 0.6em;
   text-decoration: none;
   border: 0.1em solid rgba(0, 0, 0, 0.1);
-  color: #222;
+  color: #333f55;
   transition: color 0.3s ease, background-color 0.3s ease,
     border-color 0.3s ease, outline 0.3s ease;
 }

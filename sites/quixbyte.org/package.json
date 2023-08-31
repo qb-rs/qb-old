@@ -15,7 +15,6 @@
   "type": "module",
   "dependencies": {
     "@fontsource/inter": "^5.0.8",
-    "@fontsource/metropolis": "^5.0.7",
     "@fontsource/teko": "^5.0.9",
     "@fortawesome/free-brands-svg-icons": "^6.4.2",
     "@fortawesome/free-solid-svg-icons": "^6.4.2",

@@ -13,7 +13,6 @@
 
   import "@fontsource/teko/latin-700.css";
   import "@fontsource/inter/latin-400.css";
-  import "@fontsource/metropolis/latin-400.css";
 </script>
 
 <main>
@@ -24,8 +23,9 @@
   @import url("https://fonts.googleapis.com/css2?family=Handjet:wght@400&display=swap");
 
   main {
-    max-width: 800px;
+    max-width: 1000px;
+    width: 85%;
     margin: auto;
-    padding: 3rem 2rem;
+    padding: 4rem 0rem;
   }
 </style>

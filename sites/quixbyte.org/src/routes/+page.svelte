@@ -42,8 +42,8 @@
     <h1>Performance to an extreme.</h1>
 
     <p>
-        Lorem ipsum dolor sit amet, qui minim labore adipisicing minim sint
-        cillum sint consectetur cupidatat.
+        QuixByte is truly fast. This is because we have chosen to go with a
+        modern tech stack.
     </p>
 
     <ul>
@@ -62,8 +62,8 @@
     <h1>Built with Privacy in mind.</h1>
 
     <p>
-        Lorem ipsum dolor sit amet, qui minim labore adipisicing minim sint
-        cillum sint consectetur cupidatat.
+        Thanks to the no-third-party model and the selfhostability of QuixByte,
+        your data is private by default.
     </p>
 
     <ul>
@@ -82,8 +82,8 @@
     <h1>Selfhostable with ease.</h1>
 
     <p>
-        Lorem ipsum dolor sit amet, qui minim labore adipisicing minim sint
-        cillum sint consectetur cupidatat.
+        Running QuixByte on your own server only requires one command to work
+        thanks to docker compose.
     </p>
 
     <ul>
@@ -129,7 +129,7 @@
 
     span {
         display: inline-block;
-        font-size: 36px;
+        font-size: 32px;
         font-family: "Handjet", cursive;
         color: blue;
         margin-bottom: 0.3em;
@@ -138,11 +138,15 @@
     section {
         margin-top: 8rem;
         margin-bottom: 8rem;
-        font-size: 1.4rem;
     }
 
     section h1 {
         margin-bottom: 2rem;
+    }
+
+    section p {
+        font-size: 20px;
+        max-width: 560px;
     }
 
     section ul,
@@ -157,32 +161,32 @@
     footer {
         padding-top: 3rem;
         font-size: 14px;
-        font-family: "Inter", sans-serif;
     }
 
-    @media (max-width: 500px) {
+    @media (max-width: 480px) {
         span {
             font-size: 30px;
+            font-size: 6vw;
         }
 
         section h1 {
-            font-size: 40px;
+            font-size: 8vw;
         }
 
         section p {
-            font-size: 20px;
+            font-size: 17px;
         }
 
         .button {
-            font-size: 18px;
+            font-size: 17px;
         }
 
-        .hero {
-            text-align: center;
+        .hero h1 {
+            font-size: 60px;
         }
 
-        .hero ul {
-            justify-content: center;
+        .hero p {
+            font-size: 19px;
         }
 
         footer {
