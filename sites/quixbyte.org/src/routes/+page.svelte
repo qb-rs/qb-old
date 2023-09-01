@@ -55,8 +55,9 @@
 
     <ul>
         <li>
-            <a href="/" class="button"
-                ><Fa icon={faGaugeHigh} />&nbsp; Tech stack</a
+            <a
+                href="https://app.eraser.io/workspace/3jxv9eMPdNDpIb6oveGa?origin=share"
+                class="button"><Fa icon={faGaugeHigh} />&nbsp; Tech stack</a
             >
         </li>
     </ul>
@@ -75,7 +76,7 @@
 
     <ul>
         <li>
-            <a href="https://github.com/QuixByte/qb" class="button"
+            <a href="https://github.com/QuixByte/QB" class="button"
                 ><Fa icon={faCode} />&nbsp; Source code</a
             >
         </li>
